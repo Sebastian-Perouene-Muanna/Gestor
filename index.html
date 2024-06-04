@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Vencimientos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Vencimientos de Productos</h1>
+    </header>
+    <main>
+        <section id="add-product">
+            <h2>Agregar Producto</h2>
+            <form id="product-form">
+                <label for="product-name">Nombre:</label>
+                <input type="text" id="product-name" required>
+                <label for="product-code">Código/PLU:</label>
+                <input type="text" id="product-code" required>
+                <label for="expiry-date">Fecha de Vencimiento:</label>
+                <input type="date" id="expiry-date" required>
+                <button type="submit">Agregar Producto</button>
+            </form>
+        </section>
+        <section id="product-list">
+            <h2>Lista de Productos</h2>
+            <ul id="products"></ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
