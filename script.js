@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productForm = document.getElementById('product-form');
     const productList = document.getElementById('products');
+    const alertMessages = document.getElementById('alert-messages');
     const products = JSON.parse(localStorage.getItem('products')) || [];
     let editIndex = -1;
 
@@ -57,16 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkExpiryDates() {
         const now = new Date();
+        let alerts = [];
         products.forEach((product) => {
             const expiryDate = new Date(product.expiryDate);
-            const diffTime = Math.abs(expiryDate - now);
+            const diffTime = expiryDate - now;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            if (diffDays <= 30 && diffDays > 3) {
-                alert(`Sugerencia de precio para ${product.name}. Queda menos de un mes para su vencimiento.`);
-            } else if (diffDays <= 3) {
-                alert(`Alerta para retirar ${product.name}. Quedan menos de 3 días para su vencimiento.`);
+
+            if (diffDays === 30) {
+                alerts.push(`Sugerencia de precio para ${product.name}. Queda menos de un mes para su vencimiento.`);
+            } else if (diffDays === 3) {
+                alerts.push(`Alerta para retirar ${product.name}. Quedan menos de 3 días para su vencimiento.`);
             }
         });
+
+        if (alerts.length > 0) {
+            alertMessages.innerHTML = alerts.map(alert => `<p>${alert}</p>`).join('');
+            alertMessages.style.display = 'block';
+        } else {
+            alertMessages.style.display = 'none';
+        }
     }
 
     setInterval(checkExpiryDates, 86400000); // Comprobar cada 24 horas
