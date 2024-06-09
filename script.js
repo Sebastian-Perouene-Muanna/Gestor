@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    setInterval(checkExpiryDates, 60000); // Comprobar cada 24 horas
+    setInterval(checkExpiryDates, 86400000); // Comprobar cada 24 horas
 
     renderProducts();
     window.deleteProduct = deleteProduct; // Hacer las funciones accesibles globalmente

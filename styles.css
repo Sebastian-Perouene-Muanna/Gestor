@@ -18,8 +18,12 @@ main {
     margin: auto;
 }
 
-h1, h2 {
+h1 {
     color: #ffffff;
+}
+
+h2 {
+   color: #c0392b;
 }
 
 form {
