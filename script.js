@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const productForm = document.getElementById('product-form');
     const productList = document.getElementById('products');
     const alertMessages = document.getElementById('alert-messages');
-    const searchInput = document.getElementById('search-input');
-    const categoryFilter = document.getElementById('category-filter');
   
     let products = JSON.parse(localStorage.getItem('products')) || [];
     let editIndex = -1;
@@ -13,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('products', JSON.stringify(products));
     }
   
-    // Calcula días restantes para el vencimiento
+    // Calcula los días restantes para el vencimiento
     function getDaysLeft(expiryDate) {
       const now = new Date();
       const exp = new Date(expiryDate);
@@ -21,28 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     }
   
-    // Renderiza la lista de productos filtrados
+    // Renderiza la lista de productos
     function renderProducts() {
       productList.innerHTML = '';
   
-      // Valores de búsqueda y categoría
-      const searchValue = searchInput.value.toLowerCase();
-      const selectedCategory = categoryFilter.value;
-  
-      // Filtro de productos por búsqueda y categoría
-      const filteredProducts = products.filter(product => {
-        const matchesSearch = product.name.toLowerCase().includes(searchValue)
-          || product.code.toLowerCase().includes(searchValue);
-        const matchesCategory = selectedCategory === ''
-          || product.category === selectedCategory;
-        return matchesSearch && matchesCategory;
-      });
-  
-      // Ordena productos por fecha de vencimiento (ascendente)
-      filteredProducts.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
+      // Ordena los productos por fecha de vencimiento (ascendente)
+      const sortedProducts = [...products].sort(
+        (a, b) => new Date(a.expiryDate) - new Date(b.expiryDate)
+      );
   
       // Crea elementos en la lista
-      filteredProducts.forEach((product, index) => {
+      sortedProducts.forEach((product) => {
         const li = document.createElement('li');
         li.innerHTML = `
           <strong>${product.name}</strong> 
@@ -57,11 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
         // Botón eliminar
         li.querySelector('.btn-delete').addEventListener('click', () => {
-          // Encuentra el índice real del producto en el array original
           const realIndex = products.findIndex(
-            (p) => p.name === product.name
-              && p.code === product.code
-              && p.expiryDate === product.expiryDate
+            (p) =>
+              p.name === product.name &&
+              p.code === product.code &&
+              p.expiryDate === product.expiryDate
           );
           deleteProduct(realIndex);
         });
@@ -69,9 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Botón editar
         li.querySelector('.btn-edit').addEventListener('click', () => {
           const realIndex = products.findIndex(
-            (p) => p.name === product.name
-              && p.code === product.code
-              && p.expiryDate === product.expiryDate
+            (p) =>
+              p.name === product.name &&
+              p.code === product.code &&
+              p.expiryDate === product.expiryDate
           );
           editProduct(realIndex);
         });
@@ -107,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderProducts();
     }
   
-    // Prepara el formulario para editar un producto
+    // Prepara el formulario para editar
     function editProduct(index) {
       const product = products[index];
       document.getElementById('product-name').value = product.name;
@@ -119,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Chequea las fechas de vencimiento y muestra alertas
     function checkExpiryDates() {
-      let alerts = [];
+      const alerts = [];
   
       products.forEach((product) => {
         const daysLeft = getDaysLeft(product.expiryDate);
@@ -135,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       if (alerts.length > 0) {
-        alertMessages.innerHTML = alerts.map(alert => `<p>${alert}</p>`).join('');
+        alertMessages.innerHTML = alerts.map((alert) => `<p>${alert}</p>`).join('');
         alertMessages.style.display = 'block';
       } else {
         alertMessages.style.display = 'none';
@@ -155,15 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
       productForm.reset();
     });
   
-    // Filtros de búsqueda y categoría
-    searchInput.addEventListener('input', renderProducts);
-    categoryFilter.addEventListener('change', renderProducts);
-  
-    // Inicializa la app
+    // Inicia la app
     renderProducts();
     setInterval(checkExpiryDates, 60000); // Comprobar cada minuto
   
-    // Expone funciones globales (si las requieres para llamados onClick en HTML)
+    // Funciones globales (si requieres llamarlas desde el HTML)
     window.deleteProduct = deleteProduct;
     window.editProduct = editProduct;
   });

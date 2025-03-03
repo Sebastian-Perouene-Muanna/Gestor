@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestión de Vencimientos</title>
 
   <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" 
-    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
@@ -23,35 +24,25 @@
     <section id="add-product">
       <h2>Agregar Producto</h2>
       <form id="product-form">
-          <label for="product-name">Nombre:</label>
-          <input type="text" id="product-name" required>
+        <label for="product-name">Nombre:</label>
+        <input type="text" id="product-name" required />
 
+        <label for="product-code">Código/PLU:</label>
+        <input type="text" id="product-code" required />
 
-          <!-- Campo de categoría con las 3 opciones -->
-          <label for="product-category">Categoría:</label>
-          <select id="product-category">
-            <option value="secos">Secos</option>
-            <option value="perecederos">Perecederos</option>
-            <option value="bebidas">Bebidas</option>
-          </select>
+        <!-- Campo de categoría con las 3 opciones: secos, perecederos, bebidas -->
+        <label for="product-category">Categoría:</label>
+        <select id="product-category">
+          <option value="secos">Secos</option>
+          <option value="perecederos">Perecederos</option>
+          <option value="bebidas">Bebidas</option>
+        </select>
 
-          <label for="expiry-date">Fecha de Vencimiento:</label>
-          <input type="date" id="expiry-date" required>
+        <label for="expiry-date">Fecha de Vencimiento:</label>
+        <input type="date" id="expiry-date" required />
 
-          <button type="submit">Agregar Producto</button>
+        <button type="submit">Agregar Producto</button>
       </form>
-    </section>
-
-    <!-- Sección de filtros (búsqueda por nombre/código y por categoría) -->
-    <section id="filters">
-      <h3>Buscar / Filtrar</h3>
-      <input type="text" id="search-input" placeholder="Buscar por nombre o código...">
-      <select id="category-filter">
-        <option value="">Todas las categorías</option>
-        <option value="secos">Secos</option>
-        <option value="perecederos">Perecederos</option>
-        <option value="bebidas">Bebidas</option>
-      </select>
     </section>
 
     <!-- Lista de productos -->

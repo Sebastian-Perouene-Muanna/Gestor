@@ -1,23 +1,20 @@
 /* 
   VARIABLES DE COLOR
-  Puedes ajustar esta paleta a tu gusto
 */
 :root {
-    --color-primary: #2ecc71;        /* Color de acento */
-    --color-primary-dark: #27ae60;   /* Variante más oscura */
-    --color-secondary: #3498db;      /* Color secundario */
-    --color-text: #333;             /* Texto principal */
-    --color-background: #f4f4f4;     /* Fondo principal */
+    --color-primary: #2ecc71;
+    --color-primary-dark: #27ae60;
+    --color-secondary: #3498db;
+    --color-text: #333;
+    --color-background: #f4f4f4;
     --color-white: #ffffff;
   
-    /* Sombritas y transiciones suaves */
     --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     --transition: 0.3s ease;
   }
   
   /* 
     TIPOGRAFÍA
-    Usamos Inter para un aspecto limpio y moderno
   */
   * {
     margin: 0;
@@ -33,7 +30,6 @@
   
   /* 
     CABECERA
-    Un gradiente diagonal para efecto moderno
   */
   header {
     background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
@@ -61,18 +57,11 @@
     gap: 2rem;
   }
   
-  /* 
-    SECCIONES
-  */
   section {
     background: var(--color-white);
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: var(--box-shadow);
-  }
-  
-  section:not(:last-child) {
-    margin-bottom: 1rem;
   }
   
   /* 
@@ -121,7 +110,7 @@
   }
   
   /* 
-    BOTONES
+    BOTÓN 
   */
   button {
     padding: 0.75rem 1rem;
@@ -137,15 +126,6 @@
   
   button:hover {
     background: var(--color-primary-dark);
-  }
-  
-  /* 
-    FILTROS
-  */
-  #filters {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
   }
   
   /* 
@@ -173,7 +153,6 @@
     transform: translateY(-3px);
   }
   
-  /* Botones dentro del item */
   #products li button {
     margin-left: 0.5rem;
     background: var(--color-secondary);
@@ -214,12 +193,12 @@
     top: 1rem;
     left: 1rem;
     font-size: 1.5rem;
-    opacity: 0.2; 
+    opacity: 0.2;
     pointer-events: none;
   }
   
   /* 
-    MEDIA QUERIES para dispositivos móviles 
+    MEDIA QUERIES (móvil)
   */
   @media (max-width: 768px) {
     main {
