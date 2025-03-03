@@ -16,17 +16,50 @@
             <form id="product-form">
                 <label for="product-name">Nombre:</label>
                 <input type="text" id="product-name" required>
+
                 <label for="product-code">Código/PLU:</label>
                 <input type="text" id="product-code" required>
+
+                <!-- Nuevo campo para Cantidad -->
+                <label for="product-quantity">Cantidad:</label>
+                <input type="number" id="product-quantity" min="1" value="1" required>
+
+                <!-- Nuevo campo para Categoría -->
+                <label for="product-category">Categoría:</label>
+                <select id="product-category">
+                    <option value="general">General</option>
+                    <option value="lacteos">Lácteos</option>
+                    <option value="bebidas">Bebidas</option>
+                    <option value="carniceria">Carnicería</option>
+                    <!-- Agrega las categorías que necesites -->
+                </select>
+
                 <label for="expiry-date">Fecha de Vencimiento:</label>
                 <input type="date" id="expiry-date" required>
+
                 <button type="submit">Agregar Producto</button>
             </form>
         </section>
+
+        <!-- Sección para buscar o filtrar productos -->
+        <section id="filters">
+            <h3>Buscar / Filtrar</h3>
+            <input type="text" id="search-input" placeholder="Buscar por nombre o código...">
+            <select id="category-filter">
+                <option value="">Todas las categorías</option>
+                <option value="general">General</option>
+                <option value="lacteos">Lácteos</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="carniceria">Carnicería</option>
+                <!-- Más categorías si lo deseas -->
+            </select>
+        </section>
+
         <section id="product-list">
             <h2>Lista de Productos</h2>
             <ul id="products"></ul>
         </section>
+
         <section id="alerts">
             <h3>Alertas</h3>
             <div id="alert-messages"></div>
