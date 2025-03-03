@@ -100,5 +100,60 @@ document.addEventListener('DOMContentLoaded', () => {
       const product = products[index];
       document.getElementById('product-name').value = product.name;
       document.getElementById('product-code').value = product.code;
-      document.getEl
+      document.getElementById('product-category').value = product.category;
+      document.getElementById('expiry-date').value = product.expiryDate;
+      editIndex = index;
+    }
+  
+    // Chequea las fechas de vencimiento y muestra alertas
+    function checkExpiryDates() {
+      const alerts = [];
+  
+      products.forEach((product) => {
+        const daysLeft = getDaysLeft(product.expiryDate);
+  
+        // Ajusta los mensajes según tus umbrales
+        if (daysLeft <= 3 && daysLeft >= 0) {
+          alerts.push(`¡Atención! Quedan ${daysLeft} día(s) para que venza ${product.name}.`);
+        } else if (daysLeft < 0) {
+          alerts.push(
+            `El producto ${product.name} ya está vencido (${Math.abs(daysLeft)} día(s) atrás).`
+          );
+        } else if (daysLeft === 30) {
+          alerts.push(
+            `Sugerencia de precio para ${product.name}. Queda 1 mes para su vencimiento.`
+          );
+        }
+      });
+  
+      if (alerts.length > 0) {
+        alertMessages.innerHTML = alerts.map((alert) => `<p>${alert}</p>`).join('');
+        alertMessages.style.display = 'block';
+      } else {
+        alertMessages.style.display = 'none';
+      }
+    }
+  
+    // Evento al enviar el formulario
+    productForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('product-name').value;
+      const code = document.getElementById('product-code').value;
+      const category = document.getElementById('product-category').value;
+      const expiryDate = document.getElementById('expiry-date').value;
+  
+      // Crea/edita el objeto producto
+      addProduct({ name, code, category, expiryDate });
+      productForm.reset();
+    });
+  
+    // Inicializa la app
+    renderProducts();
+    checkExpiryDates(); // Muestra alertas inmediatamente
+    setInterval(checkExpiryDates, 60000); // Comprobar cada minuto
+  
+    // Funciones globales (si requieres llamarlas desde el HTML)
+    window.deleteProduct = deleteProduct;
+    window.editProduct = editProduct;
+  });
   
