@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
         // Botón eliminar
         li.querySelector('.btn-delete').addEventListener('click', () => {
-          // Para identificar el producto único, puedes usar:
           const realIndex = products.findIndex(
             (p) =>
               p.name === product.name &&
@@ -111,13 +110,23 @@ document.addEventListener('DOMContentLoaded', () => {
       products.forEach((product) => {
         const daysLeft = getDaysLeft(product.expiryDate);
   
+        // 1. NUEVA REGLA: Si es perecedero y faltan 7 días => "¡Pronto consumo!"
+        if (product.category === 'perecederos' && daysLeft === 7) {
+          alerts.push(`¡Pronto consumo! Quedan 7 días para que venza ${product.name}.`);
+        }
+  
+        // 2. Si faltan 3 días o menos => alerta de vencimiento cercano
         if (daysLeft <= 3 && daysLeft >= 0) {
           alerts.push(`¡Atención! Quedan ${daysLeft} día(s) para que venza ${product.name}.`);
-        } else if (daysLeft < 0) {
+        }
+        // 3. Si está vencido (daysLeft < 0)
+        else if (daysLeft < 0) {
           alerts.push(
             `El producto ${product.name} ya está vencido (${Math.abs(daysLeft)} día(s) atrás).`
           );
-        } else if (daysLeft === 30) {
+        }
+        // 4. Falta 1 mes
+        else if (daysLeft === 30) {
           alerts.push(
             `Sugerencia de precio para ${product.name}. Queda 1 mes para su vencimiento.`
           );
@@ -139,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const category = document.getElementById('product-category').value;
       const expiryDate = document.getElementById('expiry-date').value;
   
-      // Crea/edita el objeto producto (sin 'code')
+      // Crea/edita el objeto producto
       addProduct({ name, category, expiryDate });
       productForm.reset();
     });
@@ -147,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializa la app
     renderProducts();
     checkExpiryDates(); // Muestra alertas inmediatamente
-    setInterval(checkExpiryDates, 60000); // Comprobar cada minuto
+    setInterval(checkExpiryDates, 60000); // Comprueba cada minuto
   
     // Funciones globales
     window.deleteProduct = deleteProduct;
