@@ -147,5 +147,24 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       const name = document.getElementById('product-name').value;
       const code = document.getElementById('product-code').value;
-      const cate
+      const category = document.getElementById('product-category').value;
+      const expiryDate = document.getElementById('expiry-date').value;
+  
+      // Crea/edita el objeto producto
+      addProduct({ name, code, category, expiryDate });
+      productForm.reset();
+    });
+  
+    // Filtros de búsqueda y categoría
+    searchInput.addEventListener('input', renderProducts);
+    categoryFilter.addEventListener('change', renderProducts);
+  
+    // Inicializa la app
+    renderProducts();
+    setInterval(checkExpiryDates, 60000); // Comprobar cada minuto
+  
+    // Expone funciones globales (si las requieres para llamados onClick en HTML)
+    window.deleteProduct = deleteProduct;
+    window.editProduct = editProduct;
+  });
   
