@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sortedProducts.forEach((product) => {
         const li = document.createElement('li');
         li.innerHTML = `
-          <strong>${product.name}</strong> 
-          (Código: ${product.code}) 
+          <strong>${product.name}</strong>
           - Categoría: ${product.category}
           - Vence: ${product.expiryDate}
           <div>
@@ -44,10 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
         // Botón eliminar
         li.querySelector('.btn-delete').addEventListener('click', () => {
+          // Para identificar el producto único, puedes usar:
           const realIndex = products.findIndex(
             (p) =>
               p.name === product.name &&
-              p.code === product.code &&
+              p.category === product.category &&
               p.expiryDate === product.expiryDate
           );
           deleteProduct(realIndex);
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const realIndex = products.findIndex(
             (p) =>
               p.name === product.name &&
-              p.code === product.code &&
+              p.category === product.category &&
               p.expiryDate === product.expiryDate
           );
           editProduct(realIndex);
@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function editProduct(index) {
       const product = products[index];
       document.getElementById('product-name').value = product.name;
-      document.getElementById('product-code').value = product.code;
       document.getElementById('product-category').value = product.category;
       document.getElementById('expiry-date').value = product.expiryDate;
       editIndex = index;
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
       products.forEach((product) => {
         const daysLeft = getDaysLeft(product.expiryDate);
   
-        // Ajusta los mensajes según tus umbrales
         if (daysLeft <= 3 && daysLeft >= 0) {
           alerts.push(`¡Atención! Quedan ${daysLeft} día(s) para que venza ${product.name}.`);
         } else if (daysLeft < 0) {
@@ -138,12 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
     productForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const name = document.getElementById('product-name').value;
-      const code = document.getElementById('product-code').value;
       const category = document.getElementById('product-category').value;
       const expiryDate = document.getElementById('expiry-date').value;
   
-      // Crea/edita el objeto producto
-      addProduct({ name, code, category, expiryDate });
+      // Crea/edita el objeto producto (sin 'code')
+      addProduct({ name, category, expiryDate });
       productForm.reset();
     });
   
@@ -152,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     checkExpiryDates(); // Muestra alertas inmediatamente
     setInterval(checkExpiryDates, 60000); // Comprobar cada minuto
   
-    // Funciones globales (si requieres llamarlas desde el HTML)
+    // Funciones globales
     window.deleteProduct = deleteProduct;
     window.editProduct = editProduct;
   });
